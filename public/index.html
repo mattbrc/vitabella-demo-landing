@@ -58,12 +58,7 @@
   </main>
   <footer><a href="#" class="brand"><img src="/favicon.svg" width="34" height="34" alt=""><span>VITA BELLA</span></a><p>Preview for Vita Bella · Booking powered by EMRG</p><a href="https://vitabella.com" target="_blank" rel="noopener noreferrer">Visit original website ↗</a></footer>
 
-  <dialog id="booking-dialog" aria-labelledby="booking-title">
-    <div class="booking-heading"><div><span class="eyebrow">VITA BELLA × EMRG</span><h2 id="booking-title">Book your consultation</h2></div><button class="close-button" id="close-booking" aria-label="Close booking">✕</button></div>
-    <p class="booking-notice">Demo preview · Connected to the live booking system. Use test patient details.</p>
-    <div class="booking-body"><p class="loading-message" id="booking-status" role="status">Loading available appointments…</p><iframe id="booking-frame" title="Vita Bella appointment booking" referrerpolicy="strict-origin-when-cross-origin"></iframe></div>
-    <div class="booking-footer"><span>Powered by EMRG</span><a id="booking-fallback" target="_blank" rel="noopener noreferrer">Open booking in a new tab ↗</a></div>
-  </dialog>
+  <p id="booking-error" class="booking-error" role="alert" hidden>Booking could not load. Please try again, or <a href="https://joinemrg.com/book?clinicId=45" target="_blank" rel="noopener noreferrer">open booking in a new tab</a>.</p>
   <noscript><p class="noscript">Enable JavaScript to open the booking demo, or <a href="https://joinemrg.com/book?clinicId=45">book in a new tab</a>.</p></noscript>
 </body>
 </html>

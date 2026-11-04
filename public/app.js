@@ -1,42 +1,50 @@
 const config = window.VITA_BELLA_CONFIG;
-const dialog = document.querySelector('#booking-dialog');
-const iframe = document.querySelector('#booking-frame');
-const status = document.querySelector('#booking-status');
-const fallback = document.querySelector('#booking-fallback');
-const bookingUrl = new URL('/book', config.bookingOrigin);
-bookingUrl.searchParams.set('clinicId', String(config.clinicId));
-fallback.href = bookingUrl.href;
-let previousFocus;
-let loadingTimeout;
+const bookingError = document.querySelector('#booking-error');
+let widgetReady;
 
-function openBooking(event) {
-  if (dialog.open) return;
-  previousFocus = event.currentTarget;
-  status.textContent = 'Loading available appointments…';
-  status.hidden = false;
-  iframe.src = bookingUrl.href;
-  dialog.showModal();
-  document.body.classList.add('booking-open');
-  document.querySelector('#close-booking').focus();
-  // Cross-origin frame content cannot be inspected; always retain the direct-link fallback.
-  loadingTimeout = window.setTimeout(() => {
-    status.hidden = true;
-  }, 12000);
+function loadWidget() {
+  if (widgetReady) return widgetReady;
+  widgetReady = new Promise((resolve, reject) => {
+    const script = document.createElement('script');
+    script.src = 'https://joinemrg.com/widget.js';
+    script.async = true;
+    script.defer = true;
+    script.onload = () => {
+      if (!window.emrgWidget || !window.launchEmrgWidget) {
+        script.remove();
+        reject(new Error('EMRG widget did not initialize'));
+        return;
+      }
+      window.emrgWidget.init(config);
+      resolve();
+    };
+    script.onerror = () => {
+      script.remove();
+      reject(new Error('EMRG widget could not load'));
+    };
+    document.head.appendChild(script);
+  }).catch(error => {
+    widgetReady = undefined;
+    throw error;
+  });
+  return widgetReady;
 }
-iframe.addEventListener('load', () => {
-  if (!dialog.open) return;
-  status.hidden = true;
-  window.clearTimeout(loadingTimeout);
+
+// Use EMRG's own panel, styling, lifecycle, and booking integration.
+let opening = false;
+document.querySelectorAll('[data-book]').forEach(button => {
+  button.addEventListener('click', async () => {
+    if (opening) return;
+    opening = true;
+    bookingError.hidden = true;
+    try {
+      await loadWidget();
+      window.launchEmrgWidget(config.clinicId);
+    } catch {
+      bookingError.hidden = false;
+    } finally {
+      opening = false;
+    }
+  });
 });
-document.querySelectorAll('[data-book]').forEach(button => button.addEventListener('click', openBooking));
-document.querySelector('#close-booking').addEventListener('click', () => dialog.close());
-dialog.addEventListener('click', event => {
-  const bounds = dialog.getBoundingClientRect();
-  if (event.target === dialog && (event.clientX < bounds.left || event.clientX > bounds.right || event.clientY < bounds.top || event.clientY > bounds.bottom)) dialog.close();
-});
-dialog.addEventListener('close', () => {
-  window.clearTimeout(loadingTimeout);
-  document.body.classList.remove('booking-open');
-  iframe.removeAttribute('src');
-  previousFocus?.focus();
-});
+loadWidget().catch(() => {}); // A click retries if the initial network request fails.

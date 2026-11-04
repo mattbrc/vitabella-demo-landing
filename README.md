@@ -13,15 +13,19 @@ Open http://127.0.0.1:4173. Use `PORT=4174 npm run dev` if needed. Node 18+.
 
 ## Booking configuration
 
-Edit `public/config.js`. Default: clinic **45 (VITA BELLA)**, booking origin **https://joinemrg.com**.
-Every booking CTA opens the real `/book?clinicId=45` app inside an accessible dialog. Nothing loads until clicked.
-The booking UI is live: submitting its forms can create real patient/appointment records. Use synthetic test data.
-The landing page itself collects no patient data and adds no analytics scripts. EMRG controls analytics inside its booking app.
+Edit `public/config.js`. Default: clinic **45 (VITA BELLA)**.
+The page loads the official `https://joinemrg.com/widget.js`, initializes it with
+`window.emrgWidget.init(config)`, and every booking CTA calls `window.launchEmrgWidget(45)`.
+EMRG owns the standard slide-out panel and its behavior; there is no custom modal or iframe shell.
+Optional Google Analytics / Meta IDs are omitted unless you supply real IDs.
 
-The demo deliberately uses an absolute iframe URL. The current EMRG widget.js auto-routes localhost hosts to a
-local `/book` route, which does not exist in this standalone project. The embedded app itself is the same booking UI.
-Escape, the close button, or the desktop backdrop closes the dialog. A new-tab fallback remains available if
-browser cookies, network access, or embed policies prevent loading. Confirm any required origin allowlists before sharing.
+The booking UI is live: submitting forms can create real patient/appointment records. Use synthetic test data.
+The official widget controls its own analytics and attribution behavior.
+
+On localhost, the official script targets `/book` on the local origin. The included development server
+redirects that route to `https://joinemrg.com/book`, preserving all query parameters, so the unmodified
+production widget works locally too. On Vercel the widget uses production directly. If the script fails
+to load, clicking again retries and a direct booking link is offered.
 
 ## Build / later Vercel deployment
 
