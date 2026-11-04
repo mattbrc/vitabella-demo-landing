@@ -1,0 +1,69 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex, nofollow">
+  <meta name="description" content="Vita Bella — a booking experience demo powered by EMRG.">
+  <meta name="theme-color" content="#101820">
+  <title>Vita Bella | Booking Demo</title>
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+  <link rel="preload" href="/assets/heading.ttf" as="font" type="font/ttf" crossorigin>
+  <link rel="stylesheet" href="/styles.css">
+  <script src="/config.js" defer></script>
+  <script src="/app.js" defer></script>
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+  <div class="demo-strip"><span class="status-dot"></span> VITA BELLA × EMRG <span class="strip-divider">/</span> BOOKING EXPERIENCE DEMO</div>
+  <header class="site-header">
+    <a href="#" class="brand" aria-label="Vita Bella home"><img src="/favicon.svg" width="42" height="42" alt=""><span>VITA BELLA</span></a>
+    <nav aria-label="Main navigation"><a href="#care">Our care</a><a href="#how-it-works">How it works</a><a href="#membership">Membership</a></nav>
+    <button class="button button-small" data-book>Book a consultation <span aria-hidden="true">↗</span></button>
+  </header>
+  <main id="main">
+    <section class="hero">
+      <div class="hero-copy">
+        <p class="eyebrow"><span class="small-cross" aria-hidden="true">✳</span> A BETTER WAY TO FEEL LIKE YOU.</p>
+        <h1>Hormones are<br>the <span class="highlight">foundation.</span></h1>
+        <p class="hero-subheading">Your next chapter starts here.</p>
+        <p class="hero-description">Get to know your body. Explore clinician-guided care built around your labs, your goals, and the way you want to live.</p>
+        <div class="hero-actions"><button class="button" data-book>Find your appointment <span aria-hidden="true">↗</span></button><a class="text-link" href="#how-it-works">See how it works <span aria-hidden="true">↓</span></a></div>
+        <div class="hero-notes"><span><b>✓</b> Personalized care</span><span><b>✓</b> Online consultations</span></div>
+      </div>
+      <div class="hero-art">
+        <img class="hero-photo" src="/assets/brand-man.png" width="1500" height="844" alt="Vita Bella brand photograph of an athlete training">
+        <div class="photo-caption"><span>YOUR HEALTH. YOUR PACE.</span><span aria-hidden="true">↗</span></div>
+        <div class="photo-label">FEEL GOOD.<br><span>LIVE FULLY.</span></div>
+      </div>
+    </section>
+    <div class="care-ribbon" aria-hidden="true"><span>HORMONE HEALTH</span><i>✳</i><span>WEIGHT MANAGEMENT</span><i>✳</i><span>EVERYDAY VITALITY</span><i>✳</i><span>PERSONALIZED TO YOU</span></div>
+    <section id="care" class="section care-section">
+      <div class="section-heading"><div><p class="eyebrow">CARE THAT STARTS WITH YOU</p><h2>Different goals.<br>One place to start.</h2></div><p>Bring your questions. Your clinician can help you explore the next step for your health.</p></div>
+      <div class="care-grid">
+        <button class="care-card green" data-book><span class="card-top">01 <span aria-hidden="true">↗</span></span><h3>Hormone<br>health</h3><p>Care shaped around your symptoms and lab results.</p></button>
+        <button class="care-card cream" data-book><span class="card-top">02 <span aria-hidden="true">↗</span></span><h3>Weight<br>management</h3><p>Discuss your goals and available treatment options.</p></button>
+        <button class="care-card lavender" data-book><span class="card-top">03 <span aria-hidden="true">↗</span></span><h3>Wellness<br>& longevity</h3><p>Make room for energy, recovery, and everyday wellbeing.</p></button>
+      </div>
+    </section>
+    <section id="how-it-works" class="section process-section">
+      <p class="eyebrow">YOUR FIRST STEP IS SIMPLE</p><h2>More living.<br>Less figuring it out.</h2>
+      <div class="steps"><article><span>01</span><h3>Choose a time</h3><p>Find an appointment that fits your day, right here on the page.</p></article><article><span>02</span><h3>Meet your clinician</h3><p>Talk through your history, your questions, and what you want to change.</p></article><article><span>03</span><h3>Make a plan</h3><p>Work together on next steps, with treatment subject to clinical review.</p></article></div>
+    </section>
+    <section id="membership" class="membership section">
+      <div><p class="eyebrow">THE VITA BELLA MEMBERSHIP</p><h2>Your health.<br>A little more personal.</h2><p>Ongoing care, lab access, and a patient portal that keeps everything together.</p><p class="price"><strong>$129</strong><span>/ month</span></p><p class="price-note">$99 initial consultation · 3-month minimum</p><button class="button" data-book>Explore your next step <span aria-hidden="true">↗</span></button><p class="pricing-caption">Reference pricing from Vita Bella. Confirm details during booking.</p></div>
+      <img src="/assets/brand-products.jpg" width="1200" height="900" alt="Vita Bella branded wellness products" loading="lazy">
+    </section>
+    <section class="closing"><p class="eyebrow">READY WHEN YOU ARE</p><h2>Make time<br>for yourself.</h2><button class="button button-dark" data-book>Book a consultation <span aria-hidden="true">↗</span></button></section>
+  </main>
+  <footer><a href="#" class="brand"><img src="/favicon.svg" width="34" height="34" alt=""><span>VITA BELLA</span></a><p>Preview for Vita Bella · Booking powered by EMRG</p><a href="https://vitabella.com" target="_blank" rel="noopener noreferrer">Visit original website ↗</a></footer>
+
+  <dialog id="booking-dialog" aria-labelledby="booking-title">
+    <div class="booking-heading"><div><span class="eyebrow">VITA BELLA × EMRG</span><h2 id="booking-title">Book your consultation</h2></div><button class="close-button" id="close-booking" aria-label="Close booking">✕</button></div>
+    <p class="booking-notice">Demo preview · Connected to the live booking system. Use test patient details.</p>
+    <div class="booking-body"><p class="loading-message" id="booking-status" role="status">Loading available appointments…</p><iframe id="booking-frame" title="Vita Bella appointment booking" referrerpolicy="strict-origin-when-cross-origin"></iframe></div>
+    <div class="booking-footer"><span>Powered by EMRG</span><a id="booking-fallback" target="_blank" rel="noopener noreferrer">Open booking in a new tab ↗</a></div>
+  </dialog>
+  <noscript><p class="noscript">Enable JavaScript to open the booking demo, or <a href="https://joinemrg.com/book?clinicId=45">book in a new tab</a>.</p></noscript>
+</body>
+</html>
