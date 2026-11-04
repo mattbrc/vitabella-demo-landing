@@ -8,14 +8,7 @@ const types = { '.html': 'text/html; charset=utf-8', '.css': 'text/css', '.js': 
 http.createServer(async (request, response) => {
   if (!['GET', 'HEAD'].includes(request.method)) { response.writeHead(405).end(); return; }
   try {
-    const requestUrl = new URL(request.url, 'http://localhost');
-    const pathname = decodeURIComponent(requestUrl.pathname);
-    // The official widget targets local /book on localhost. Redirect only this
-    // development route to production, preserving the widget's query parameters.
-    if (pathname === '/book' || pathname === '/book/') {
-      response.writeHead(302, { Location: 'https://joinemrg.com/book' + requestUrl.search }).end();
-      return;
-    }
+    const pathname = decodeURIComponent(new URL(request.url, 'http://localhost').pathname);
     const file = resolve(root, '.' + (pathname === '/' ? '/index.html' : pathname));
     if (!file.startsWith(root + sep)) { response.writeHead(403).end(); return; }
     const data = await readFile(file);

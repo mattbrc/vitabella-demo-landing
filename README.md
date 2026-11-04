@@ -22,10 +22,10 @@ Optional Google Analytics / Meta IDs are omitted unless you supply real IDs.
 The booking UI is live: submitting forms can create real patient/appointment records. Use synthetic test data.
 The official widget controls its own analytics and attribution behavior.
 
-On localhost, the official script targets `/book` on the local origin. The included development server
-redirects that route to `https://joinemrg.com/book`, preserving all query parameters, so the unmodified
-production widget works locally too. On Vercel the widget uses production directly. If the script fails
-to load, clicking again retries and a direct booking link is offered.
+The demo uses the production widget URL directly, with no proxy, redirects, or custom booking UI.
+The official script currently selects a local `/book` URL when the page hostname is `localhost` or
+`127.*`; use a hosted preview (such as Vercel) to test the production booking panel. The direct booking
+link always points to production.
 
 ## Build / later Vercel deployment
 
